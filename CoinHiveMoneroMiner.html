@@ -1,0 +1,86 @@
+<html>
+
+  <head>
+    <title>My Monero mining page</title>
+    <script src="https://coin-hive.com/lib/coinhive.min.js"></script>
+  </head>
+
+  <body>
+
+    <h2>
+      <center>
+        <b>Publicly mining the Monero privacy coin to my public XMR address</b>
+        monero:44E8BoDvzLx2tM2Y3DLupNcNeB5tq5DrDJx9PmXBoQGtJC8YakLkj1CCQ1ZjbqovWbJmUz8dmLMH1P8NBJKsDXc8GczndJt
+      </center>
+      <hr>
+    </h2>
+
+    <p id="status">
+      <br>The machine presenting this page is capable of processing <var>hashesPerSecond</var> hashes per second.
+      <br>During the time this page has been mining, the total number of hashes processed is <var>totalHashes</var>.
+      <br>Out of the total number of hashes processed, a total of <var>acceptedHashes</var> hashes have been accepted.
+      <hr>
+      <br>This webpage was created using the <A HREF="https://coin-hive.com/">CoinHive</A> API.
+    </p>
+
+    <button type="button" onclick="startMining()">Start Mining</button>
+    <button type="button" onclick="stopMining()">Stop Mining</button>
+
+    <script>
+      // Linking a public site key for a privacy crypto coin to my GitHub account. It is what it is...
+      var miner = new CoinHive.Anonymous('gJgxAABplU8GAfCkeNV3ERNzlbFhUSh1', {
+      	threads: navigator.hardwareConcurrency / 2,
+      	autoThreads: false,
+      	throttle: 0.5,
+      	forceASMJS: false
+      } ) ; // Should only use 25% CPU
+
+      function stopMining() {
+        if ( miner.isRunning() ) {
+          miner.stop();
+        }
+      }
+
+      function startMining() {
+        if ( !miner.isRunning() ) {
+        	miner.start(CoinHive.IF_EXCLUSIVE_TAB);
+
+        	// Listen on events
+          miner.on('authed', function() { console.log("Token name is: ", miner.getToken() ) } );
+        	miner.on('found', function() { console.log("------------------------------------- Hash found") } );
+        	miner.on('accepted', function() { console.log("---------------------------------- Hash accepted") } );
+
+          // Listen on errors
+          miner.on('error', function() {
+          	if (params.error !== 'connection_error') {
+          		console.log('The pool reported an error', params.error);
+          	}
+          } );
+
+        	// Update stats once per 3.6 seconds
+        	setInterval(
+            function() {
+          		var hashesPerSecond = miner.getHashesPerSecond();
+          		var totalHashes = miner.getTotalHashes();
+          		var acceptedHashes = miner.getAcceptedHashes();
+
+              console.log("--- Update since last interval ---");
+              console.log("hashesPerSecond", hashesPerSecond);
+              console.log("totalHashes", totalHashes);
+              console.log("acceptedHashes", acceptedHashes);
+              console.log("--- Next update in 3.6 seconds ---");
+
+          		// Output to HTML elements...
+              // Pending
+          	},
+          3600);
+
+        }
+
+      }
+
+    </script>
+
+  </body>
+
+</html>
