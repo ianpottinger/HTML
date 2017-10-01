@@ -2,16 +2,16 @@
 
   <head>
     <title>My Monero mining page</title>
-    <script src="https://coin-hive.com/lib/coinhive.min.js"></script>
+    <script src="https://coinhive.com/lib/coinhive.min.js"></script>
   </head>
 
   <body>
 
     <h2>
       <center>
-        <b>Publicly mining the Monero privacy coin to my public XMR address</b>
+        <i>Openly mining the Monero privacy coin to my public XMR address</i>
         <br>
-        <br>monero:44E8BoDvzLx2tM2Y3DLupNcNeB5tq5DrDJx9PmXBoQGtJC8YakLkj1CCQ1ZjbqovWbJmUz8dmLMH1P8NBJKsDXc8GczndJt
+        <br>monero: 44E8BoDvzLx2tM2Y3DLupNcNeB5tq5DrDJx9PmXBoQGtJC8YakLkj1CCQ1ZjbqovWbJmUz8dmLMH1P8NBJKsDXc8GczndJt
       </center>
       <hr>
     </h2>
@@ -21,15 +21,19 @@
       <br>During the time this page has been mining, the total number of hashes processed is <var>totalHashes</var>.
       <br>Out of the total number of hashes processed, a total of <var>acceptedHashes</var> hashes have been accepted.
       <h3><center>Page updates are not implentmented yet, so press F12 to view the console</center></h3>
-      <hr>
-      <br>This webpage was created using the <A HREF="https://coin-hive.com/">CoinHive</A> API.
+    </p>
+
+    <hr>
+
+    <p>
+      <br>This webpage was created using the <A HREF="https://coinhive.com/">CoinHive</A> API.
       <br>with the help of <A HREF="https://www.youtube.com/channel/UCrYmtJBtLdtm2ov84ulV-yg">Ivan on Tech</A>
-      <br>💎 Ivan's BTC 1QLBCmPsrDS8YHe5AApPyFsHFnvPsTenj4
-      <br>💎 Ivan's ETH 0x27F80bc928aB65B499514D9a429249F55849fc75
-      <br>💎 Ivan's LTC LWzA2kd6PB3niQcegAmJbTTpE5ovf812Mj
-      <br>💎 Ivan's LISK 14809770439046000662L
-      <br>💎 Ivan's DASH XfX56mNDawvmxxWv3nF9Ev93W4MsmCbeXp
-      <br>💎 Ivan's DOGE DDNNj1TfDJe47agPDJQtnphvAPiLa8wjSJ
+      <br>💎 Ivan's BTC: <b>1QLBCmPsrDS8YHe5AApPyFsHFnvPsTenj4</b>
+      <br>💎 Ivan's ETH: <b>0x27F80bc928aB65B499514D9a429249F55849fc75</b>
+      <br>💎 Ivan's LTC: <b>LWzA2kd6PB3niQcegAmJbTTpE5ovf812Mj</b>
+      <br>💎 Ivan's LISK: <b>14809770439046000662L</b>
+      <br>💎 Ivan's DASH: <b>XfX56mNDawvmxxWv3nF9Ev93W4MsmCbeXp</b>
+      <br>💎 Ivan's DOGE: <b>DDNNj1TfDJe47agPDJQtnphvAPiLa8wjSJ</b>
     </p>
 
     <button type="button" onclick="startMining()">Start Mining</button>
@@ -55,12 +59,12 @@
         	miner.start(CoinHive.IF_EXCLUSIVE_TAB);
 
         	// Listen on events
-          miner.on('authed', function() { console.log("Token name is: ", miner.getToken() ) } );
+          miner.on('authed', function(params) { console.log("Token name is: ", miner.getToken() ) } );
         	miner.on('found', function() { console.log("------------------------------------- Hash found") } );
         	miner.on('accepted', function() { console.log("---------------------------------- Hash accepted") } );
 
           // Listen on errors
-          miner.on('error', function() {
+          miner.on('error', function(params) {
           	if (params.error !== 'connection_error') {
           		console.log('The pool reported an error', params.error);
           	}
@@ -82,6 +86,7 @@
           		// Output to HTML elements...
               // Pending
           	},
+
           3600);
 
         }
