@@ -50,11 +50,7 @@
         } ) ; // Should only use 25% CPU
       }
 
-      function stopMining() {
-        if ( miner.isRunning() ) {
-          miner.stop();
-        }
-      }
+      var statusUpdates = null;
 
       function startMining() {
         if ( !miner.isRunning() ) {
@@ -73,7 +69,7 @@
           } );
 
         	// Update stats once per 3.6 seconds
-        	setInterval(
+        	statusUpdates = setInterval(
             function() {
           		var hashesPerSecond = miner.getHashesPerSecond();
           		var totalHashes = miner.getTotalHashes();
@@ -88,11 +84,15 @@
           		// Output to HTML elements...
               // Pending
           	},
-
           3600);
-
         }
+      }
 
+      function stopMining() {
+        if ( miner.isRunning() ) {
+          miner.stop();
+          clearInterval(statusUpdates);
+        }
       }
 
     </script>
